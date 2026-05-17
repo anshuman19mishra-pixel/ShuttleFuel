@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <title>TaskFlow - Smart To-Do List</title>
+    <link rel="stylesheet" href="todo-styles.css" />
+  </head>
+  <body>
+    <main class="todo-container">
+      <header class="todo-header">
+        <div class="header-content">
+          <h1>✓ TaskFlow</h1>
+          <p>Organize your day, boost productivity</p>
+        </div>
+        <div class="header-stats">
+          <span id="taskCount" class="stat-badge">0 tasks</span>
+          <span id="completedCount" class="stat-badge completed">0 done</span>
+        </div>
+      </header>
+
+      <section class="input-section">
+        <form id="taskForm" class="task-form">
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="taskInput"
+              placeholder="Add a new task..."
+              autocomplete="off"
+            />
+            <select id="prioritySelect" class="priority-select">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <button type="submit" class="add-btn">+ Add Task</button>
+        </form>
+      </section>
+
+      <section class="filter-section">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="active">Active</button>
+          <button class="filter-btn" data-filter="completed">Completed</button>
+          <button class="filter-btn" data-filter="high">High Priority</button>
+        </div>
+        <button id="clearCompletedBtn" class="clear-btn">Clear Completed</button>
+      </section>
+
+      <section class="stats-section">
+        <div class="progress-container">
+          <div class="progress-info">
+            <span class="progress-label">Today's Progress</span>
+            <span id="progressPercent" class="progress-percent">0%</span>
+          </div>
+          <progress id="progressBar" class="progress-bar" value="0" max="100"></progress>
+        </div>
+      </section>
+
+      <section class="tasks-section">
+        <div id="tasksList" class="tasks-list"></div>
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">📋</div>
+          <h3>No tasks yet</h3>
+          <p>Create a new task to get started!</p>
+        </div>
+      </section>
+
+      <footer class="todo-footer">
+        <button id="exportBtn" class="footer-btn" title="Export tasks">📥 Export</button>
+        <button id="importBtn" class="footer-btn" title="Import tasks">📤 Import</button>
+        <button id="resetBtn" class="footer-btn" title="Reset all tasks">🔄 Reset</button>
+      </footer>
+    </main>
+
+    <!-- Hidden import input -->
+    <input type="file" id="fileInput" accept=".json" style="display: none" />
+
+    <script src="todo-app.js"></script>
+  </body>
+</html>
