@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08130f" />
+    <title>ShuttleFuel - Badminton Nutrition Tracker</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="splash" id="splash">
+        <div class="brand-mark">SF</div>
+        <h1>ShuttleFuel</h1>
+        <p>Track & Fuel Your Performance</p>
+      </section>
+
+      <section class="phone" aria-label="ShuttleFuel app">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Badminton Nutrition</p>
+            <h2 id="screenTitle">Dashboard</h2>
+          </div>
+          <button class="icon-button" id="refreshBtn" title="Refresh plan" aria-label="Refresh plan">↻</button>
+        </header>
+
+        <nav class="tabs" aria-label="App screens">
+          <button class="tab active" data-screen="dashboard">Home</button>
+          <button class="tab" data-screen="planner">Browse</button>
+          <button class="tab" data-screen="cart">My Meals</button>
+          <button class="tab" data-screen="analytics">Stats</button>
+          <button class="tab" data-screen="settings">Profile</button>
+        </nav>
+
+        <section class="screen active" id="dashboard">
+          <div class="readiness-panel">
+            <div>
+              <span>Match readiness</span>
+              <strong id="readinessScore">84</strong>
+              <small id="profileSummary">Rahul · Vegetarian · Increase stamina</small>
+            </div>
+            <div class="pulse-ring" aria-hidden="true"></div>
+          </div>
+
+          <div class="metrics-grid">
+            <article class="metric">
+              <span>Daily Calories</span>
+              <strong id="caloriesTarget">2450</strong>
+              <progress id="caloriesProgress" value="68" max="100"></progress>
+            </article>
+            <article class="metric">
+              <span>Protein</span>
+              <strong id="proteinTarget">118g</strong>
+              <progress id="proteinProgress" value="74" max="100"></progress>
+            </article>
+            <article class="metric">
+              <span>Water</span>
+              <strong id="waterTarget">2.8L</strong>
+              <progress id="waterProgress" value="64" max="100"></progress>
+            </article>
+            <article class="metric">
+              <span>Training</span>
+              <strong id="trainingLabel">2h</strong>
+              <progress value="50" max="100"></progress>
+            </article>
+          </div>
+
+          <section class="section-band">
+            <div class="section-heading">
+              <h3>AI Recommendations</h3>
+              <span id="apiStatus">Demo mode</span>
+            </div>
+            <div id="recommendations" class="recommendation-list"></div>
+          </section>
+
+          <section class="section-band">
+            <div class="section-heading">
+              <h3>Meal Timing</h3>
+              <span>Today's schedule</span>
+            </div>
+            <div id="timingList" class="timing-list"></div>
+          </section>
+        </section>
+
+        <section class="screen" id="planner">
+          <div class="meal-filter">
+            <button class="chip active" data-filter="all">All</button>
+            <button class="chip" data-filter="pre_workout">Pre</button>
+            <button class="chip" data-filter="post_workout">Post</button>
+            <button class="chip" data-filter="match_day">Match</button>
+            <button class="chip" data-filter="recovery">Recovery</button>
+          </div>
+          <div id="mealList" class="meal-list"></div>
+        </section>
+
+        <section class="screen" id="cart">
+          <div class="cart-header">
+            <h3>Today's Intake</h3>
+            <form id="customMealForm" class="inline-form">
+              <input name="meal_name" placeholder="Meal name" required />
+              <input name="calories" type="number" placeholder="Cals" required />
+              <input name="protein" type="number" placeholder="Pro" required />
+              <button type="submit">Log</button>
+            </form>
+          </div>
+          <div id="dailyIntakeList" class="daily-intake"></div>
+          
+          <div class="cart-section">
+            <h3 style="margin-top: 1rem;">Shopping List</h3>
+            <div id="cartList" class="cart-list"></div>
+          </div>
+        </section>
+
+        <section class="screen" id="analytics">
+          <div class="chart-card">
+            <h3>Performance Trend</h3>
+            <canvas id="performanceChart" width="320" height="170"></canvas>
+          </div>
+          <div class="analytics-grid">
+            <article>
+              <span>Energy</span>
+              <strong id="energyScore">8/10</strong>
+            </article>
+            <article>
+              <span>Recovery</span>
+              <strong id="recoveryScore">7/10</strong>
+            </article>
+            <article>
+              <span>Sleep</span>
+              <strong id="sleepScore">8h</strong>
+            </article>
+            <article>
+              <span>Soreness</span>
+              <strong id="sorenessScore">4/10</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="screen" id="settings">
+          <form id="profileForm" class="profile-form">
+            <section class="form-panel">
+              <div class="section-heading inline-heading">
+                <h3>Personal Details</h3>
+                <span id="profileCompleteness">0% complete</span>
+              </div>
+              <label>Full name <input name="name" value="Rahul" autocomplete="name" /></label>
+              <label>Email <input name="email" type="email" placeholder="you@example.com" autocomplete="email" /></label>
+              <label>City <input name="city" placeholder="Bengaluru" autocomplete="address-level2" /></label>
+              <label>Gender
+                <select name="gender">
+                  <option selected>Male</option>
+                  <option>Female</option>
+                </select>
+              </label>
+            </section>
+
+            <section class="form-panel">
+              <div class="section-heading inline-heading">
+                <h3>Body & Training</h3>
+                <span>Used for nutrition targets</span>
+              </div>
+            <div class="form-row">
+              <label>Age <input name="age" type="number" value="18" min="12" /></label>
+              <label>Weight kg <input name="weight_kg" type="number" value="68" min="35" step="0.1" /></label>
+            </div>
+            <div class="form-row">
+              <label>Height cm <input name="height_cm" type="number" value="175" min="120" /></label>
+              <label>Hours/day <input name="training_hours_day" type="number" value="2" min="0" max="8" step="0.5" /></label>
+            </div>
+            <label>Playing level
+              <select name="playing_level">
+                <option>Beginner</option>
+                <option selected>Intermediate</option>
+                <option>Professional</option>
+              </select>
+            </label>
+            <label>Training time
+              <select name="training_time">
+                <option>Morning</option>
+                <option selected>Evening</option>
+                <option>Night</option>
+                <option>Flexible</option>
+              </select>
+            </label>
+            </section>
+
+            <section class="form-panel">
+              <div class="section-heading inline-heading">
+                <h3>Food Preferences</h3>
+                <span>Used for meal suggestions</span>
+              </div>
+            <label>Diet
+              <select name="dietary_preference">
+                <option selected>Vegetarian</option>
+                <option>Vegan</option>
+                <option>Non-vegetarian</option>
+              </select>
+            </label>
+            <label>Goal
+              <select name="goal">
+                <option selected>Increase stamina</option>
+                <option>Build strength and muscle</option>
+                <option>Fat loss with performance</option>
+                <option>Weight management</option>
+                <option>Tournament preparation</option>
+                <option>Improve recovery</option>
+              </select>
+            </label>
+            <label>Allergies or foods to avoid <input name="allergies" placeholder="peanut, milk, eggs" /></label>
+            <label>Injuries or concerns <input name="injuries" placeholder="knee pain, shoulder strain" /></label>
+            <label>Weekly grocery budget <input name="budget_weekly" type="number" value="2450" min="500" step="50" /></label>
+            </section>
+
+            <section class="form-panel">
+              <div class="section-heading inline-heading">
+                <h3>Shopping Platforms</h3>
+                <span>Quick links to buy ingredients</span>
+              </div>
+              <div class="platforms-grid" id="platformsGrid"></div>
+            </section>
+
+            <section class="form-panel">
+            <div class="section-heading inline-heading">
+              <h3>Performance Metrics</h3>
+              <span>Today's status</span>
+            </div>
+            <div class="form-row">
+              <label>Energy <input name="energy_score" type="number" value="8" min="1" max="10" /></label>
+              <label>Recovery <input name="recovery_score" type="number" value="7" min="1" max="10" /></label>
+            </div>
+            <div class="form-row">
+              <label>Sleep hours <input name="sleep_hours" type="number" value="8" min="0" max="14" step="0.5" /></label>
+              <label>Soreness <input name="soreness_score" type="number" value="4" min="1" max="10" /></label>
+            </div>
+            <label>Match performance <input name="match_performance" type="number" value="84" min="0" max="100" /></label>
+            <label class="toggle"><input name="tournament_mode" type="checkbox" /> Tournament mode</label>
+            </section>
+            <button type="submit" class="primary-action">Generate Nutrition Plan</button>
+            <button type="button" id="resetDataBtn" class="secondary-action">Reset all data</button>
+          </form>
+        </section>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
